@@ -144,10 +144,12 @@ function EventsPage() {
 
     return (
         <div className={EventsPageCss.page}>
-            <header className={EventsPageCss.header}>
-                <h1>All Events</h1>
-                <Link to="/create-event" className={EventsPageCss.createBtn}>+ Create Event</Link>
-            </header>
+                        <header className={EventsPageCss.header}>
+                                <h1>All Events</h1>
+                                {currentUser && currentUser.role === 'admin' && (
+                                    <Link to="/create-event" className={EventsPageCss.createBtn}>+ Create Event</Link>
+                                )}
+                        </header>
 
             {loading && <p className={EventsPageCss.message}>Loading events...</p>}
             {error && <p className={EventsPageCss.error}>{error}</p>}

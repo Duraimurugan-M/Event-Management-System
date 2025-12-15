@@ -4,7 +4,16 @@ const Registration = require('../models/registrationModel');
 // Create a new event
 const createEvent = async (req, res) => {
     try {
-        const eventData = await Event.create(req.body);
+        // determine organizer: if admin provided organizer id, allow it; otherwise use authenticated user
+        const payload = { ...req.body };
+        if (req.user && req.user._id) {
+            if (req.user.role === 'admin' && payload.organizer) {
+                // admin can specify organizer id in payload
+            } else {
+                payload.organizer = req.user._id;
+            }
+        }
+        const eventData = await Event.create(payload);
         res.status(201).json({ message: 'Event created successfully', event: eventData });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });

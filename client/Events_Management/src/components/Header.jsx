@@ -71,6 +71,7 @@ function Header() {
           {user && (
             <>
               <li className={HeaderCss['list-items']}><Link to="/events">Events</Link></li>
+              <li className={HeaderCss['list-items']}><Link to="/my-registrations">My Registrations</Link></li>
             </>
           )}
         </ul>

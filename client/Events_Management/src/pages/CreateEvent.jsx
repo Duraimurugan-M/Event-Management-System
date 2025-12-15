@@ -44,8 +44,7 @@ function CreateEvent() {
         date: new Date(form.date).toISOString(),
         location: form.location,
         capacity: form.capacity,
-        // organizer optional: if provided, send it; otherwise server may use authenticated user
-        ...(form.organizer ? { organizer: form.organizer } : {})
+        organizer: form.organizer || undefined
       }
 
       const res = await axios.post('http://localhost:3000/events', payload, {
@@ -71,6 +70,35 @@ function CreateEvent() {
     const t = setTimeout(() => navigate('/events'), 900)
     return () => clearTimeout(t)
   }, [success, navigate])
+
+  // fetch organizers for admin dropdown
+  const [organizers, setOrganizers] = useState([])
+  const currentUser = (() => { try { return JSON.parse(localStorage.getItem('user')) || null } catch { return null } })();
+
+  useEffect(() => {
+    const loadOrganizers = async () => {
+      const currentUser = (() => { try { return JSON.parse(localStorage.getItem('user')) || null } catch { return null } })();
+      if (!currentUser || currentUser.role !== 'admin') return;
+      try {
+        const res = await axios.get('http://localhost:3000/auth/users');
+        const orgs = (res.data || []).filter(u => u.role === 'organizer');
+        setOrganizers(orgs);
+        if (orgs.length > 0) setForm(prev => ({ ...prev, organizer: orgs[0]._id }));
+      } catch (err) {
+        console.error('Load organizers error', err);
+      }
+    };
+    loadOrganizers();
+  }, [navigate]);
+
+  // redirect non-admin away
+  useEffect(() => {
+    const currentUser = (() => { try { return JSON.parse(localStorage.getItem('user')) || null } catch { return null } })();
+    if (!currentUser) return;
+    if (currentUser.role !== 'admin') {
+      navigate('/events');
+    }
+  }, [navigate]);
 
   return (
     <div className={styles.page}>
@@ -114,7 +142,16 @@ function CreateEvent() {
 
           <label className={styles.label}>
             Organizer *
-            <input className={styles.input} name="organizer" value={form.organizer} onChange={handleChange} placeholder="Organizer user id" required />
+            {currentUser && currentUser.role === 'admin' ? (
+              <select className={styles.input} name="organizer" value={form.organizer} onChange={handleChange} required>
+                <option value="">Select organizer</option>
+                {organizers.map(o => (
+                  <option key={o._id} value={o._id}>{o.name} ({o.email})</option>
+                ))}
+              </select>
+            ) : (
+              <input className={styles.input} name="organizer" value={form.organizer} onChange={handleChange} placeholder="Organizer user id" required />
+            )}
           </label>
 
           <div className={styles.actions}>

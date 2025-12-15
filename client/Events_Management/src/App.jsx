@@ -11,6 +11,7 @@ import Footer from './components/Footer.jsx'
 import EventsPage from './pages/EventsPage.jsx'
 import CreateEvent from './pages/CreateEvent.jsx'
 import RegistrationEvent from './pages/RegistrationEvent.jsx'
+import MyRegistrations from './pages/MyRegistrations.jsx'
 
 function App() {
   useEffect(() => {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/events/:id" element={<RegistrationEvent />} />
+          <Route path="/my-registrations" element={<MyRegistrations />} />
           <Route path="/create-event" element={<CreateEvent />} />
         </Routes>
         <Footer />

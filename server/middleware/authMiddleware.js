@@ -34,4 +34,11 @@ const requireAdmin = (req, res, next) => {
   return res.status(403).json({ message: 'Admin access required' });
 };
 
-module.exports = { protect, requireAdmin };
+const requireOrganizerOrAdmin = (req, res, next) => {
+  if (req.user && (req.user.role === 'organizer' || req.user.role === 'admin')) {
+    return next();
+  }
+  return res.status(403).json({ message: 'Organizer or admin access required' });
+};
+
+module.exports = { protect, requireAdmin, requireOrganizerOrAdmin };
