@@ -1,0 +1,24 @@
+.page { padding: 24px; min-height: calc(100vh - 80px); box-sizing: border-box }
+.card { background: rgba(255,255,255,0.9); padding: 18px; border-radius: 12px; max-width: 900px; margin: 0 auto; box-shadow: 0 6px 18px rgba(2,6,23,0.06) }
+.title { margin: 0 0 8px 0; font-size: 24px; color: #0f172a }
+.when { color:#64748b; margin-bottom:8px }
+.desc { color:#374151; margin-bottom:12px }
+.row { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:12px }
+.info { background: rgba(99,102,241,0.06); padding: 6px 10px; border-radius:8px; font-weight:600; color:#0f172a }
+.actions { margin-bottom: 16px }
+.registerBtn { background: linear-gradient(90deg,#6366f1,#4f46e5); color:#fff; border:none; padding:8px 14px; border-radius:8px; cursor:pointer }
+.registerBtn[disabled] { opacity:0.6; cursor:not-allowed }
+.removeAllBtn { margin-left:12px; background: transparent; border:1px solid #e6e9ef; padding:8px 12px; border-radius:8px; cursor:pointer }
+.regList { margin-top: 12px }
+.regList h3 { margin: 0 0 8px 0 }
+.regList {color: #0f172a }
+.regItem { display:flex; justify-content:space-between; gap:12px; padding:8px 10px; border-radius:8px; border:1px solid #eef2ff; margin-bottom:8px }
+.regName { font-weight:700;  color: #0f172a}
+.regEmail { color:#394049 }
+.message { color:#374151 }
+.error { color:#b91c1c }
+.regActions { display:flex; gap:8px; align-items:center }
+.cancelBtn { background: transparent; border:1px solid #e6e9ef; padding:6px 10px; border-radius:6px; cursor:pointer }
+.removeBtn { background: linear-gradient(90deg,#ef4444,#dc2626); color:#fff; border:none; padding:6px 10px; border-radius:6px; cursor:pointer }
+.attendBtn { background: linear-gradient(90deg,#10b981,#059669); color:#fff; border:none; padding:6px 10px; border-radius:6px; cursor:pointer }
+.attendedBadge { background:#eef2ff; color:#3730a3; padding:4px 8px; border-radius:8px; font-weight:600 }
