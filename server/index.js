@@ -33,7 +33,7 @@ connectDB();
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Hello World! This is the Event Management System API. And push to durai branch');
 });
 
 app.listen(port, () => {
